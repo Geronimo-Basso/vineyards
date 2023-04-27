@@ -89,3 +89,7 @@ if __name__ == '__main__':
     print("Awards:", awards)
     print("Sales:", sales)
     print("Income:", income)
+
+    df = pd.DataFrame()
+
+    print(case_price.mean())
