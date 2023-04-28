@@ -224,17 +224,22 @@ if __name__ == '__main__':
     #---------- Graficos ----------#
 
     #--------- Histogramas ----------#
-    # df.hist(column='case_price', bins=5)
-    # df.hist(column='age', bins=5)
-    # df.hist(column='acres', bins=5)
-    # df.hist(column='varieties', bins=5)
-    # df.hist(column='domestic', bins=2)
-    # df.hist(column='visitors', bins=5)
-    # df.hist(column='buses', bins=5)
-    # df.hist(column='employees', bins=5)
-    # df.hist(column='awards', bins=5)
-    # df.hist(column='sales', bins=5)
-    # df.hist(column='income', bins=5)
+    #df.hist(column='case_price', bins=5)
+    #df.hist(column='age', bins=5)
+    #df.hist(column='acres', bins=5)
+    #df.hist(column='varieties', bins=5)
+    #df.hist(column='domestic', bins=2)
+    #df.hist(column='visitors', bins=5)
+    #df.hist(column='buses', bins=5)
+    #df.hist(column='employees', bins=5)
+    #df.hist(column='awards', bins=5)
+    #df.hist(column='sales', bins=5)
+    #df.hist(column='income', bins=5)
+    #features_list = ['case_price','age','acres','varieties','domestic','buses','employees','awards','sales','income']
+    #df[features_list].hist(bins=5, edgecolor='b', linewidth=1.0,
+                        #xlabelsize=10, ylabelsize=10, grid=False,
+                        #figsize=(16, 6), color='red')
+    #plt.suptitle('Vineyard', x=0.65, y=1.25, fontsize=14);
 
     #--------- Caja y bigotes ----------#
     df.boxplot(column='case_price')
@@ -293,23 +298,72 @@ if __name__ == '__main__':
 
     #--------- Scatter ----------#
     df.plot.scatter(x='acres', y='employees')
-    plt.show()
     df.plot.scatter(x='acres', y='income')
-    plt.show()
     df.plot.scatter(x='case_price', y='awards')
-    plt.show()
     df.plot.scatter(x='varieties', y='sales')
-    plt.show()
     df.plot.scatter(x='age', y='awards')
-    plt.show()
     df.plot.scatter(x='location', y='income')
-    plt.show()
     df.plot.scatter(x='income', y='sales')
-    plt.show()
     df.plot.scatter(x='employees', y='income')
+
+    # Gráfico de dispersión acres vs employees con coeficiente de correlación
+    df.plot.scatter(x='acres', y='employees')
+    corr_coef = df['acres'].corr(df['employees'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='acres', y='employees', data=df)
+    plt.show()
+
+    # Gráfico de dispersión acres vs income con coeficiente de correlación
+    df.plot.scatter(x='acres', y='income')
+    corr_coef = df['acres'].corr(df['income'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='acres', y='income', data=df)
+    plt.show()
+
+    # Gráfico de dispersión case_price vs awards con coeficiente de correlación
+    df.plot.scatter(x='case_price', y='awards')
+    corr_coef = df['case_price'].corr(df['awards'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='case_price', y='awards', data=df)
+    plt.show()
+
+    # Gráfico de dispersión varieties vs sales con coeficiente de correlación
+    df.plot.scatter(x='varieties', y='sales')
+    corr_coef = df['varieties'].corr(df['sales'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='varieties', y='sales', data=df)
+    plt.show()
+
+    # Gráfico de dispersión age vs awards con coeficiente de correlación
+    df.plot.scatter(x='age', y='awards')
+    corr_coef = df['age'].corr(df['awards'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='age', y='awards', data=df)
+    plt.show()
+
+    # Gráfico de dispersión location vs income con coeficiente de correlación
+    #df.plot.scatter(x='location', y='income')
+    #corr_coef = df['location'].corr(df['income'])
+    #plt.title(f'Correlación: {corr_coef:.2f}')
+    #sns.regplot(x='location', y='income', data=df)
+    #plt.show()
+
+    # Gráfico de dispersión income vs sales con coeficiente de correlación
+    df.plot.scatter(x='income', y='sales')
+    corr_coef = df['income'].corr(df['sales'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='income', y='sales', data=df)
+    plt.show()
+
+    # Gráfico de dispersión employees vs income con coeficiente de correlación
+    df.plot.scatter(x='employees', y='income')
+    corr_coef = df['employees'].corr(df['income'])
+    plt.title(f'Correlación: {corr_coef:.2f}')
+    sns.regplot(x='employees', y='income', data=df)
     plt.show()
 
     #--------- Correlacion ----------#
     print("-----Correlacion-----")
     print(df.corr(numeric_only=True))
     sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='Blues')
+
