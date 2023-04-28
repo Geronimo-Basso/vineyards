@@ -1,8 +1,7 @@
 # This is a sample Python script.
 import csv
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+
 
 # Gráficos
 # ==============================================================================
@@ -30,6 +29,14 @@ import seaborn as sns
 # warnings.filterwarnings('ignore')
 #
 #
+
+def plot_bar(column_name, dataframe):
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=dataframe.index, y=dataframe[column_name], color='blue')
+    plt.xlabel('Índice')
+    plt.ylabel(column_name)
+    plt.title(f'Diagrama de barras para {column_name}')
+    plt.show()
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -142,6 +149,32 @@ if __name__ == '__main__':
     print(sales_median)
     print(income_median)
 
+    #---------- Moda ----------#
+    print("----- Moda ------")
+    case_price_mode = df['case_price'].mode().iloc[0]
+    age_mode = df['age'].mode().iloc[0]
+    acres_mode = df['acres'].mode().iloc[0]
+    varieties_mode = int(df['varieties'].mode().iloc[0])
+    domestic_mode = int(df['domestic'].mode().iloc[0])
+    visitors_mode = int(df['visitors'].mode().iloc[0])
+    buses_mode = df['buses'].mode().iloc[0]
+    employees_mode = int(df['employees'].mode().iloc[0])
+    awards_mode = df['awards'].mode().iloc[0]
+    sales_mode = df['sales'].mode().iloc[0]
+    income_mode = df['income'].mode().iloc[0]
+
+    print(case_price_mode)
+    print(age_mode)
+    print(acres_mode)
+    print(varieties_mode)
+    print(domestic_mode)
+    print(visitors_mode)
+    print(buses_mode)
+    print(employees_mode)
+    print(awards_mode)
+    print(sales_mode)
+    print(income_mode)
+
     #---------- Rango ----------#
     print("------Rango-----")
     case_price_range = df['case_price'].max() - df['case_price'].min()
@@ -224,22 +257,23 @@ if __name__ == '__main__':
     #---------- Graficos ----------#
 
     #--------- Histogramas ----------#
-    #df.hist(column='case_price', bins=5)
-    #df.hist(column='age', bins=5)
-    #df.hist(column='acres', bins=5)
-    #df.hist(column='varieties', bins=5)
-    #df.hist(column='domestic', bins=2)
-    #df.hist(column='visitors', bins=5)
-    #df.hist(column='buses', bins=5)
-    #df.hist(column='employees', bins=5)
-    #df.hist(column='awards', bins=5)
-    #df.hist(column='sales', bins=5)
-    #df.hist(column='income', bins=5)
-    #features_list = ['case_price','age','acres','varieties','domestic','buses','employees','awards','sales','income']
-    #df[features_list].hist(bins=5, edgecolor='b', linewidth=1.0,
-                        #xlabelsize=10, ylabelsize=10, grid=False,
-                        #figsize=(16, 6), color='red')
-    #plt.suptitle('Vineyard', x=0.65, y=1.25, fontsize=14);
+    features_list = ['case_price','age','acres','varieties','domestic','buses','employees','awards','sales','income']
+    df[features_list].hist(bins=5, edgecolor='b', linewidth=1.0,
+                        xlabelsize=10, ylabelsize=10, grid=False,
+                        figsize=(16, 6), color='red')
+    plt.suptitle('Vineyard', x=0.65, y=1.25, fontsize=14);
+
+
+    #--------- Diagrama de barras ----------#
+
+    columns = ['case_price', 'age', 'acres', 'varieties', 'domestic', 'visitors', 'buses', 'employees', 'awards',
+               'sales', 'income']
+
+    for column in columns:
+        plot_bar(column, df)
+
+
+
 
     #--------- Caja y bigotes ----------#
     df.boxplot(column='case_price')
@@ -366,4 +400,3 @@ if __name__ == '__main__':
     print("-----Correlacion-----")
     print(df.corr(numeric_only=True))
     sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='Blues')
-
