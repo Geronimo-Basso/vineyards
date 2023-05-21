@@ -8,27 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import style
 import seaborn as sns
-#
-# # Preprocesado y modelado
-# # ==============================================================================
-# from scipy.stats import pearsonr
-# from sklearn.linear_model import LinearRegression
-# from sklearn.model_selection import train_test_split
-# from sklearn.metrics import r2_score
-# from sklearn.metrics import mean_squared_error
-# import statsmodels.api as sm
-# import statsmodels.formula.api as smf
-# plt.rcParams['image.cmap'] = "bwr"
-# #plt.rcParams['figure.dpi'] = "100"
-# plt.rcParams['savefig.bbox'] = "tight"
-# style.use('ggplot') or plt.style.use('ggplot')
-#
-# # Configuración warnings
-# # ==============================================================================
-# import warnings
-# warnings.filterwarnings('ignore')
-#
-#
 
 def plot_bar(column_name, dataframe):
     plt.figure(figsize=(10, 6))
@@ -36,6 +15,13 @@ def plot_bar(column_name, dataframe):
     plt.xlabel('Índice')
     plt.ylabel(column_name)
     plt.title(f'Diagrama de barras para {column_name}')
+    plt.show
+
+def plot_boxplot(df):
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='location', y='income', data=df)
+    plt.xticks(rotation=90)  # Rotate x-axis labels for better readability if they are long
+    plt.title('Box plot of Income by Location')
     plt.show()
 
 # Press the green button in the gutter to run the script.
@@ -266,16 +252,21 @@ if __name__ == '__main__':
 
     #--------- Diagrama de barras ----------#
 
-    columns = ['case_price', 'age', 'acres', 'varieties', 'domestic', 'visitors', 'buses', 'employees', 'awards',
+    columns = ['location','case_price', 'age', 'acres', 'varieties', 'domestic', 'visitors', 'buses', 'employees', 'awards',
                'sales', 'income']
 
     for column in columns:
         plot_bar(column, df)
 
-
-
+    plot_boxplot(df)
 
     #--------- Caja y bigotes ----------#
+    location_map = {'Seneca': 1, 'Cayuga': 2, 'Keuka': 3}
+    df['location'] = df['location'].map(location_map)
+    df.boxplot(column='location')
+    plt.title('Box-and-Whisker Plot of location')
+    plt.show()
+
     df.boxplot(column='case_price')
     plt.xlabel('case_price')
     plt.ylabel('Values')
